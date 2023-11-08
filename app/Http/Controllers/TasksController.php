@@ -36,8 +36,14 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+        'content' => 'required',   
+        'status' => 'required|max:10',
+        ]);
+        
         $task = new Task;
         $task->content = $request->content;
+        $task->status = $request->status;
         $task->save();
 // トップページへリダイレクトさせる
 return redirect('/');
@@ -67,6 +73,7 @@ return redirect('/');
      */
     public function edit($id)
     {
+        
         // idの値でメッセージを検索して取得
         $task = Task::findOrFail($id);
         // メッセージ編集ビューでそれを表示
@@ -84,9 +91,15 @@ return redirect('/');
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+        'content' => 'required',   
+        'status' => 'required|max:10',
+        ]);
+        
         $task = Task::findOrFail($id);
         // メッセージを更新
         $task->content = $request->content;
+        $task->status = $request->status;
         $task->save();
          return redirect('/');
     }
