@@ -27,10 +27,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('tasks', function (Blueprint $table) {
-                                    // 外部キー制約
-            $table->dropForeign('user_id');
-            $table->dropColumn('user_id');
-        });
+        Schema::dropIfExists('tasks');
+        
     }
 };
